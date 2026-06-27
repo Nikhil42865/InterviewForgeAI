@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Interview = require('../Interview/interview.model');
 const InterviewSession = require('./interviewSession.model');
+const {evaluateAnswer} = require('./evaluator');
 
 const startSession = asyncHandler(async(req, res) =>{
     const interview = await Interview.findById(req.params.interviewId);
@@ -18,6 +19,7 @@ const startSession = asyncHandler(async(req, res) =>{
     }
 
     const responses = interview.questions.map((item) => ({
+        questionId : item._id,
         question : item.question,
     }));
 
@@ -33,6 +35,51 @@ const startSession = asyncHandler(async(req, res) =>{
     });
 });
 
+const submitAnswer = asyncHandler(async  (req, res)=>{
+    const {questionId, answer} = req.body;
+
+    const session = await InterviewSession.findById( req.params.sessionId);
+
+    if(!session){
+        const error = new Error("Session not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    if(session.user.toString() !== req.user._id.toString()){
+        const error = new Error("Unauthorized Access");
+        error.statusCode = 403;
+        throw error;
+    }
+
+    const response = session.responses.id(questionId);
+
+    if(!response){
+        const error = new Error("Question not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    response.answer = answer;
+
+    const result = evaluateAnswer(
+        response.question,
+        answer
+    );
+
+    response.score = result.score;
+    response.feedback = result.feedback;
+
+    await session.save();
+
+    res.status(200).json({
+        success : true,
+        message : "Answer submitted successfully",
+        response
+    });
+});
+
 module.exports = {
     startSession,
+    submitAnswer,
 }
