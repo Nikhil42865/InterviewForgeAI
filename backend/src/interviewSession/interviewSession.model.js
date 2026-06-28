@@ -43,6 +43,21 @@ const interviewSessionSchema = new mongoose.Schema({
         type : Number,
         default : 0,
     },
+
+    isCompleted: {
+        type: Boolean,
+        default: false,
+    },
+
+    totalScore: {
+        type: Number,
+        default: 0,
+    },
+
+    averageScore: {
+        type: Number,
+        default: 0,
+    },
 },
 {
     timestamps : true,

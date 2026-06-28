@@ -79,7 +79,60 @@ const submitAnswer = asyncHandler(async  (req, res)=>{
     });
 });
 
+const finishInterview = asyncHandler(async (req, res) =>{
+    const session = await InterviewSession.findById(req.params.sessionId);
+
+    if(!session){
+        const error = new Error("Session not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    if(session.user.toString() !== req.user._id.toString()){
+        const error = new Error("Unauthorized Access");
+        error.statusCode =  403;
+        throw error;
+    }
+
+    let totalScore = 0;
+    let answeredQuestions = 0;
+
+   for (const response of session.responses) {
+
+        if (response.answer.trim() !== "") {
+
+            totalScore += response.score;
+            answeredQuestions++;
+
+        }
+
+    }
+
+   const averageScore =
+    answeredQuestions > 0
+        ? totalScore / answeredQuestions
+        : 0;
+
+    session.totalScore = totalScore;
+    session.averageScore = averageScore;
+    session.isCompleted = true;
+
+    await session.save();
+
+    res.status(200).json({
+        success : true,
+        message : "Interview session completed",
+        result : {
+            totalScore,
+            averageScore,
+            answeredQuestions,
+            questionsAnswered : session.responses.length,
+        },
+    });
+});
+
 module.exports = {
     startSession,
     submitAnswer,
+    finishInterview,
 }
