@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+dotenv.config();
 const connectDB = require('./config/db');
 const authRoutes = require('./modules/auth/auth.routes');
 const {errorHandler} =
@@ -11,7 +12,8 @@ const resumeRoutes = require('./resume/resume.routes');
 const interviewRoutes = require('./Interview/interview.routes');
 const interviewSessionRoutes = require('./interviewSession/interviewSession.routes');
 
-dotenv.config();
+
+
 
 connectDB();
 

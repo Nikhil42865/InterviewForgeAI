@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Interview = require('../Interview/interview.model');
 const InterviewSession = require('./interviewSession.model');
 const {evaluateAnswer} = require('./evaluator');
+const { evaluateAnswerWithAI } = require("../AI/gemini");
 
 const startSession = asyncHandler(async(req, res) =>{
     const interview = await Interview.findById(req.params.interviewId);
@@ -62,13 +63,16 @@ const submitAnswer = asyncHandler(async  (req, res)=>{
 
     response.answer = answer;
 
-    const result = evaluateAnswer(
+    const result = await evaluateAnswerWithAI(
         response.question,
         answer
     );
 
     response.score = result.score;
     response.feedback = result.feedback;
+    response.strengths = result.strengths;
+    response.improvements = result.improvements;
+    response.idealAnswer = result.idealAnswer;
 
     await session.save();
 

@@ -22,6 +22,22 @@ const responseSchema = new mongoose.Schema({
         type : String,
         default : "",
     },
+
+    strengths: [
+        {
+            type: String,
+        },
+    ],
+
+    improvements: [
+        {
+            type: String,
+        },
+    ],
+
+    idealAnswer: {
+        type: String,
+    },
 });
 
 const interviewSessionSchema = new mongoose.Schema({
