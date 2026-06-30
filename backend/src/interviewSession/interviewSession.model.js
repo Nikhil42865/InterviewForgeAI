@@ -55,11 +55,6 @@ const interviewSessionSchema = new mongoose.Schema({
 
     responses : [responseSchema],
     
-    totalScore : {
-        type : Number,
-        default : 0,
-    },
-
     isCompleted: {
         type: Boolean,
         default: false,
@@ -73,6 +68,42 @@ const interviewSessionSchema = new mongoose.Schema({
     averageScore: {
         type: Number,
         default: 0,
+    },
+
+    report: {
+        overallScore: {
+            type: Number,
+        },
+
+        technicalLevel: {
+            type: String,
+        },
+
+        strengths: [
+            {
+                type: String,
+            },
+        ],
+
+        weaknesses: [
+            {
+                type: String,
+            },
+        ],
+
+        studyPlan: [
+            {
+                type: String,
+            },
+        ],
+
+        hiringRecommendation: {
+            type: String,
+        },
+
+        summary: {
+            type: String,
+        },
     },
 },
 {

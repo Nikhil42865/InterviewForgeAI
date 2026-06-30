@@ -2,6 +2,8 @@ const Resume = require('../resume/resume.model');
 
 const Interview = require('./interview.model');
 
+const { generateQuestionWithAI } = require('../AI/questionGenerator');
+
 const {generateQuestions} = require('./interview.service');
 const asyncHandler = require('express-async-handler');
 
@@ -12,7 +14,7 @@ const createInterview = asyncHandler(async (req, res) => {
         throw new Error("Resume not found");
     }
 
-    const questions = await generateQuestions(resume.skills);
+    const questions = await generateQuestionWithAI(resume.extractedText);
 
     const interview = await Interview.create({
         user : req.user._id,

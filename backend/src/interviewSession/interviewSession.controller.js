@@ -3,6 +3,7 @@ const Interview = require('../Interview/interview.model');
 const InterviewSession = require('./interviewSession.model');
 const {evaluateAnswer} = require('./evaluator');
 const { evaluateAnswerWithAI } = require("../AI/gemini");
+const { generateInterviewReport } = require("../AI/reportGenerator");
 
 const startSession = asyncHandler(async(req, res) =>{
     const interview = await Interview.findById(req.params.interviewId);
@@ -117,6 +118,13 @@ const finishInterview = asyncHandler(async (req, res) =>{
         ? totalScore / answeredQuestions
         : 0;
 
+    const answeredResponses = session.responses.filter(
+        (response) => response.answer.trim() !== ""
+    );
+
+    const report = await generateInterviewReport(answeredResponses);
+    session.report = report;
+    report.overallScore = averageScore;
     session.totalScore = totalScore;
     session.averageScore = averageScore;
     session.isCompleted = true;
@@ -131,6 +139,7 @@ const finishInterview = asyncHandler(async (req, res) =>{
             averageScore,
             answeredQuestions,
             questionsAnswered : session.responses.length,
+            report,
         },
     });
 });

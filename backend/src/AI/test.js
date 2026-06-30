@@ -2,15 +2,24 @@ require("dotenv").config({
     path: "../../.env",
 });
 
-const { evaluateAnswerWithAI } = require("./gemini");
+const Resume = require("../resume/resume.model");
+const mongoose = require("mongoose");
 
-(async () => {
+const {
+    generateQuestionWithAI,
+} = require("./questionGenerator");
 
-    const result = await evaluateAnswerWithAI(
-        "What is a closure in JavaScript?",
-        "A closure is a function that remembers variables from its lexical scope."
+async function run() {
+
+    await mongoose.connect(process.env.MONGO_URI);
+
+    const resume = await Resume.findOne();
+
+    const questions = await generateQuestionWithAI(
+        resume.extractedText
     );
 
-    console.log(result);
+    console.log(questions);
+}
 
-})();
+run();
