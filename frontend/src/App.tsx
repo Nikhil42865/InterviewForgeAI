@@ -15,8 +15,8 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
         </Route>
-        <Route path="/app"element = {<ProtectedRoute/>}>
-           <Route element={<DashboardLayout/>}>
+        <Route element = {<ProtectedRoute/>}>
+           <Route path="/app" element={<DashboardLayout/>}>
               <Route index element={<Navigate to="dashboard" replace/>}/>
               <Route path="dashboard" element={<DashboardPage/>}/>
             </Route>
