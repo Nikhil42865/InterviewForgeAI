@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -9,7 +9,6 @@ import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route element={<AuthLayout/>}>
           <Route path="/login" element={<LoginPage/>}/>
@@ -22,7 +21,6 @@ function App() {
             </Route>
         </Route>
       </Routes>
-    </BrowserRouter>
   );
 }
 

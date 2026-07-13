@@ -3,8 +3,12 @@ import {useNavigate} from "react-router-dom";
 import type { FormEvent } from "react";
 import type {LoginData} from "../types/auth";
 import authService from "../services/authService";
+import useAuth from "../hooks/useAuth";
 function LoginPage() {
     const navigate = useNavigate();
+    const {login} = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const [loginData, setLoginData] = useState<LoginData>({
         email : "",
@@ -23,19 +27,30 @@ function LoginPage() {
 
     const handleSubmit = async (event:FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
-        const response = await authService.login(loginData);
-        const {accessToken, refreshToken} = response.data;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        console.log(response);
-        navigate("/app/dashboard");
+        try{
+            setIsLoading(true);
+            setError("");
+            const response = await authService.login(loginData);
+            const {accessToken, refreshToken} = response.data;
+            
+            await login(accessToken, refreshToken);
+            navigate("/app/dashboard");
+        }catch(error: any){
+            setError(error.response?.data?.message || "Login failed");
+        }
+        finally{
+            setIsLoading(false);
+        }
     }
     return (
         <form onSubmit={handleSubmit}>
             <h1>Login Page</h1>
             <input type = "email" value = {loginData.email} onChange={(event) => {handleChange("email", event.target.value)}}/>
             <input type = "password" value = {loginData.password} onChange={(event) => {handleChange("password", event.target.value)}}/>
-            <button type = "submit">Login</button>
+            <button type = "submit" disabled = {isLoading}>
+                {isLoading ? "Logging in..." : "Login"}
+            </button>
+            {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
     )   
 };
