@@ -2,17 +2,14 @@ import userService from "../services/userService";
 import useAuth from "../hooks/useAuth";
 
 function DashboardPage() {
-    const testProfile = async()=>{
-        const response = await userService.getProfile();
-        console.log(response);
-    };
-    const {logout} = useAuth();
+    const {user, logout} = useAuth();
+    console.log(user);
     return (
         <div>
             <h1>Dashboard Page</h1>
-            <button onClick={testProfile}>
-                Get Profile
-            </button>
+            <h2>Welcome, {user?.name}!</h2>
+            <h3>Email: {user?.email}</h3>
+            <p>Bio: {user?.bio}</p>
             <br/>
             <button onClick={logout}>
                 Logout

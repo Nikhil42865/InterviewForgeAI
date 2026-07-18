@@ -8,6 +8,7 @@ interface User {
     id: string;
     email: string;
     name: string;
+    bio: string;
 }
 interface AuthContextType {
     user: User | null,
@@ -20,7 +21,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 function AuthProvider({ children}: { children: ReactNode }){
-    const[user, setUser] = useState(null);
+    const[user, setUser] = useState<User | null>(null);
     const[isAuthenticated, setIsAuthenticated] = useState(false);
     const[isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ function AuthProvider({ children}: { children: ReactNode }){
         localStorage.setItem("refreshToken", refreshToken);
         const response = await userService.getProfile();
 
-        setUser(response.data);
+        setUser(response);
         setIsAuthenticated(true);
     }
 
