@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import "./DashboardLayout.css";
 
 function DashboardLayout() {
     return (
-        <div>
+        <div className="dashboard-layout">
             <Navbar/>
             <Sidebar/>
-            <Outlet/>
+            <main className = "main">
+                <Outlet/>
+            </main>
         </div>
     );
 }

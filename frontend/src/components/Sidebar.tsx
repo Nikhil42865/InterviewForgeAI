@@ -16,7 +16,7 @@ function Sidebar() {
         },
         {
             label : "Coding assessment",
-            path : "/app/coding-aasessment"
+            path : "/app/coding-assessment"
         },
         {
             label : "Analytics",
@@ -28,18 +28,18 @@ function Sidebar() {
         },
     ];
     return (
-        <div>
+        <aside className="sidebar">
             <h1>Sidebar</h1>
             {
                 menuItems.map((item)=>{
                     return(
-                        <NavLink to = {item.path} key = {item.label}>
+                        <NavLink to = {item.path} key = {item.label} className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
                             {item.label}
                         </NavLink>
                     );
                 })
             }
-        </div>
+        </aside>
 
     )
 }
