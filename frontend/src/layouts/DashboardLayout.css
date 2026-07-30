@@ -5,13 +5,6 @@
     grid-template-rows: 4rem 1fr;
     min-height: 100vh;
 }
-.navbar {
-    grid-area: navbar;
-}
-
-.sidebar{
-    grid-area: sidebar;
-}
 
 .main{
     grid-area: main;

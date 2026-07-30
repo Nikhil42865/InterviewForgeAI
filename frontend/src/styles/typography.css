@@ -1,0 +1,36 @@
+/* ===========================
+   HEADINGS
+=========================== */
+
+h1{
+    font-size:2rem;
+    font-weight:700;
+    line-height:1.2;
+}
+
+h2{
+    font-size:1.5rem;
+    font-weight:600;
+}
+
+h3{
+    font-size:1.25rem;
+    font-weight:600;
+}
+
+/* ===========================
+   TEXT
+=========================== */
+
+p{
+    color:var(--color-text-secondary);
+    line-height:1.7;
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+a{
+    font-weight:500;
+}
