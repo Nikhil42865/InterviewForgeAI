@@ -9,3 +9,22 @@
 .main{
     grid-area: main;
 }
+
+@media(max-width: 768px){
+    .dashboard-layout{
+        grid-template-areas: "navbar" "main";
+        grid-template-columns: 1fr;
+    }
+    .sidebar{
+        z-index: 20;
+    }
+    .sidebar-overlay{
+        position: fixed;
+        top: 4rem;
+        left : 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}

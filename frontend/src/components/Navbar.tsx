@@ -1,8 +1,18 @@
 import "./Navbar.css";
 
-function Navbar() {
+interface NavbarProps {
+    onMenuClick: () => void;
+}
+function Navbar({onMenuClick}: NavbarProps) {
     return (
         <nav className="navbar">
+            <button 
+            type="button"
+            className="menu-button"
+            onClick={onMenuClick}
+            >
+                ☰
+            </button>
 
             <div className="navbar-left">
                 <h2>InterviewForgeAI</h2>
@@ -21,9 +31,12 @@ function Navbar() {
                     🔔
                 </button>
 
-                <div className="profile">
+                <button
+                    type="button"
+                    className="profile-button"
+                >
                     NK
-                </div>
+                </button>
 
             </div>
 

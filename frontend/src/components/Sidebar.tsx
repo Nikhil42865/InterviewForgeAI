@@ -1,7 +1,13 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
-function Sidebar() {
+interface SidebarProps{
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+function Sidebar({isOpen, onClose}: SidebarProps) {
+
     const menuItems =[
         {
             label : "Dashboard",
@@ -29,7 +35,7 @@ function Sidebar() {
         },
     ];
     return (
-        <aside className="sidebar">
+        <aside className={`sidebar ${isOpen ? "open" : ""}`}>
             <h1>Sidebar</h1>
             {
                 menuItems.map((item)=>{
