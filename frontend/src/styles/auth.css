@@ -1,0 +1,170 @@
+/* ===========================
+   Page
+=========================== */
+
+.auth-page{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+/* ===========================
+   Branding
+=========================== */
+
+.auth-branding{
+    background: linear-gradient(135deg, var(--color-primary), #12337a);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-2xl);
+    position:relative;
+    overflow: hidden;
+}
+
+/* ===========================
+   Branding Content
+=========================== */
+
+.auth-branding .brand-name{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+}
+
+.auth-branding h2{
+    font-size: 2.75rem;
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+}
+
+.auth-branding p{
+    max-width: 36rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ===========================
+   Form Section
+=========================== */
+
+.auth-form-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-2xl);
+    background: var(--color-background);
+}
+
+.auth-form{
+    width: 100%;
+    max-width:28rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.form-group{
+    display: flex;
+    flex-direction:column;
+    gap: var(--space-sm);
+}
+
+/* ===========================
+   Form Inputs
+=========================== */
+
+.auth-form input{
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form input:focus{
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ===========================
+   Register Button
+=========================== */
+
+.auth-form button{
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+   transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.auth-form button:hover:not(:disabled){
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.auth-form button:disabled{
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ===========================
+   Error Message
+=========================== */
+
+.auth-error{
+    padding: 0.75rem 1rem;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-md);
+    background: #fef2f2;
+    color: #dc2626;
+    font-size: 0.9rem;
+}
+
+/* ===========================
+   Link
+=========================== */
+
+.auth-form a{
+    align-self: center;
+    color:var(--color-text-primary);
+    font-size: 0.95rem;
+    text-decoration:none;
+    transition:color 0.2s ease;
+}
+
+.auth-form a:hover{
+    color: var(--color-primary);
+}
+
+/* ===========================
+   Media
+=========================== */
+
+@media(max-width: 768px){
+    .auth-page{
+        grid-template-columns: 1fr;
+    }
+    .auth-branding{
+        display:none;
+    }
+    .auth-form-section{
+        min-height: 100vh;
+        padding: var(--space-xl);
+    }
+}

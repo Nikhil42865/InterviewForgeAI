@@ -53,7 +53,7 @@ function AuthProvider({ children}: { children: ReactNode }){
             }
             try{
                 const response= await userService.getProfile();
-                setUser(response.data);
+                setUser(response);
                 setIsAuthenticated(true);
             }
             catch(error){
